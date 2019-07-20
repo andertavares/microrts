@@ -6,6 +6,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.io.Serializable;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -21,9 +22,15 @@ import util.XMLWriter;
  *
  * @author santi
  */
-public class Trace {
+public class Trace implements Serializable {
 
-    UnitTypeTable utt = null;
+    /**
+	 * For serialization
+	 */
+	private static final long serialVersionUID = -3842145199129189792L;
+	
+	
+	UnitTypeTable utt = null;
     List<TraceEntry> entries = new LinkedList<TraceEntry>();
 
     /**
@@ -100,6 +107,7 @@ public class Trace {
     /**
      * Writes this trace to a binary file. 
      * FIXME requires all dependencies to be serializable: TraceEntry, PhysicalGameState, ...
+     * (XStream library does not work because of illegal reflective access operations to java.util.TreeMap.comparator)
      * @param filename
      */
     public void toBin(String filename){
@@ -120,6 +128,11 @@ public class Trace {
 		}
     }
     
+    /**
+     * Loads trace from a binary file
+     * @param filename
+     * @return
+     */
     public static Trace fromBin(String filename){
     	
         Trace replay = null;

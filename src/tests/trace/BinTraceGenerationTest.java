@@ -22,7 +22,7 @@ import tests.MapGenerator;
  *
  * @author santi
  */
-public class TraceGenerationTestBin {
+public class BinTraceGenerationTest {
     public static void main(String args[]) throws IOException, Exception {
         UnitTypeTable utt = new UnitTypeTable();
         MapGenerator mg = new MapGenerator(utt);

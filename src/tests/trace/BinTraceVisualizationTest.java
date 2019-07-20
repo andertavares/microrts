@@ -17,7 +17,7 @@ import rts.Trace;
  *
  * @author santi
  */
-public class TraceVisualizationTestBin {
+public class BinTraceVisualizationTest {
 
   public static void main(String []args) throws JDOMException, IOException, Exception {
 	  

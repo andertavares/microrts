@@ -4,16 +4,19 @@
  */
 package tests.trace;
 
-import ai.core.AI;
-import ai.abstraction.WorkerRush;
-import ai.*;
-import ai.abstraction.pathfinding.BFSPathFinding;
-import java.io.FileWriter;
 import java.io.IOException;
-import rts.*;
+
+import ai.RandomBiasedAI;
+import ai.abstraction.WorkerRush;
+import ai.abstraction.pathfinding.BFSPathFinding;
+import ai.core.AI;
+import rts.GameState;
+import rts.PhysicalGameState;
+import rts.PlayerAction;
+import rts.Trace;
+import rts.TraceEntry;
 import rts.units.UnitTypeTable;
 import tests.MapGenerator;
-import util.XMLWriter;
 
 /**
  *

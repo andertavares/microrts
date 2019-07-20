@@ -1,5 +1,6 @@
 package rts;
 
+import java.io.Serializable;
 import java.util.LinkedList;
 import java.util.List;
 import org.jdom.Element;
@@ -14,9 +15,14 @@ import util.XMLWriter;
  *
  * @author santi
  */
-public class TraceEntry {
+public class TraceEntry implements Serializable {
 
-    int time;
+    /**
+	 * A random serialVersionUID to suppress warnings
+	 */
+	private static final long serialVersionUID = 579659098820632041L;
+	
+	int time;
     PhysicalGameState pgs = null;
     List<Pair<Unit, UnitAction>> actions = new LinkedList<Pair<Unit, UnitAction>>();
 

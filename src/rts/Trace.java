@@ -1,8 +1,16 @@
 package rts;
 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.util.LinkedList;
 import java.util.List;
+
 import org.jdom.Element;
+
 import rts.units.Unit;
 import rts.units.UnitTypeTable;
 import util.Pair;
@@ -87,6 +95,49 @@ public class Trace {
         }
         w.tag("/entries");
         w.tag("/" + this.getClass().getName());
+    }
+    
+    /**
+     * Writes this trace to a binary file. 
+     * FIXME requires all dependencies to be serializable: TraceEntry, PhysicalGameState, ...
+     * @param filename
+     */
+    public void toBin(String filename){
+        try {
+        	FileOutputStream fos = new FileOutputStream(filename);
+        	ObjectOutputStream oos = new ObjectOutputStream(fos);
+			oos.writeObject(this);
+			oos.close();
+			fos.close();
+        }
+		catch (FileNotFoundException notFound) {
+			System.err.println("Unable to open file '"+filename +"'");
+			notFound.printStackTrace();
+		}
+		catch (IOException e) {
+			System.err.println("Unable to write trace to file '"+filename +"'");
+			e.printStackTrace();
+		}
+    }
+    
+    public static Trace fromBin(String filename){
+    	
+        Trace replay = null;
+        try {
+        	FileInputStream fis = new FileInputStream(filename);
+            ObjectInputStream ois = new ObjectInputStream(fis);
+			replay = (Trace) ois.readObject();
+			ois.close();
+	        fis.close();
+		} catch (ClassNotFoundException e) { //this should not happen
+			System.err.println("Could not cast to Trace while loading from '" + filename + "'");
+			e.printStackTrace();
+		} catch (IOException e) {
+			System.err.println("Error while loading from '" + filename + "'");
+			e.printStackTrace();
+		}
+       
+        return replay;
     }
 
     /**
